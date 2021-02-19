@@ -7,9 +7,10 @@ from Enums.OrderType import OrderType
 #  list = O(n)
 
 class OrderBook:
-    def __init__(self, algorithm, date):
+    def __init__(self, algorithm, date, marketRegion):
         self.algorithm = algorithm
         self.date = date
+        self.marketRegion = marketRegion
         self.__orders = []
 
     def addOrder(self, order):

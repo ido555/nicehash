@@ -20,8 +20,8 @@ def getOrderBooks(algorithm, size):
     orderBooks = []
     date = getServerTime()
     data = r.json()['stats']
-    for orderBook in data.values():
-        tempOrderBook = OrderBook(algorithm, date)
+    for marketRegion, orderBook  in data.items():
+        tempOrderBook = OrderBook(algorithm, date, marketRegion)
         for order in orderBook.get('orders'):
             orderType = OrderType[order.get('type')]
             price = order.get('price')
