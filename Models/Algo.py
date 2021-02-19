@@ -1,7 +1,8 @@
 class Algo:
-    def __init__(self, title, displayMiningFactor, displayMarketFactor, minimalOrderAmount,
+    def __init__(self, title, algorithm, displayMiningFactor, displayMarketFactor, minimalOrderAmount,
                  minSpeedLimit, maxSpeedLimit, priceDownStep, minimalPoolDifficulty, port, infoDate):
         self.title = title
+        self.algorithm = algorithm
         self.displayMiningFactor = displayMiningFactor
         self.displayMarketFactor = displayMarketFactor
         self.minimalOrderAmount = minimalOrderAmount
