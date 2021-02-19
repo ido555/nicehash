@@ -23,7 +23,6 @@ def getOrderBooks(algorithm, size):
     for orderBook in data.values():
         tempOrderBook = OrderBook(algorithm, date)
         for order in orderBook.get('orders'):
-            print(order)
             orderType = OrderType[order.get('type')]
             price = order.get('price')
             limit = order.get('limit')
@@ -39,7 +38,7 @@ def getAlgosInfo():
     r = requests.get(ApiURIs.serverTime.value)
     date = datetime.fromtimestamp(r.json()['serverTime'] / 1000)
     algosInfo = []
-    r = requests.get(ApiURIs.miningAlgosInfo)
+    r = requests.get(ApiURIs.miningAlgosInfo.value)
     for algoInfo in r.json()['miningAlgorithms']:
         title = algoInfo['title']
         algorithm = algoInfo['algorithm']
