@@ -1,10 +1,12 @@
 from pprint import pprint as pp
 import Actions.Actions as actions
+from Models.OrderBook import htmlifyOrders
 import jsonpickle
 from Enums.OrderType import OrderType
 from Models.Order import Order
 import random
 import json
+
 # TODO get 3 orderbooks over 30 to 45 seconds and average the numbers for much more accurate results
 
 # str = 'STANDARD'
@@ -12,15 +14,24 @@ import json
 # print(orderType)
 # print("\n=======================")
 # actions.getOrderBooks("SHA256", 1)
-for orderBook in actions.getOrderBooks("DAGGERHASHIMOTO", 1000):
-    print("=====================================\n")
-    print(orderBook.marketRegion)
-    for order in orderBook.getCheapestOrders():
-        print(order.__repr__())
-    print("=====================================\n")
+table = ""
+for algo in actions.getAlgosInfo():
+    for orderBook in actions.getOrderBooks(algo.algorithm, 1000):
+        print(f"added: {algo.algorithm}, from the {orderBook.marketRegion} market region")
+        table += htmlifyOrders(orderBook, orderBook.getCheapestOrders(), algo.displayMarketFactor)
+        print("=====================================\n")
+file = open(r"B:\xampp\htdocs\table.html", "w")
 
+file.write("""
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+    """)
 
-# print("=======================")
+file.write(table)
+file.write("</body>")
+file.close()
 
 # orders = []
 # for i in range(0, 20):

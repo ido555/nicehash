@@ -7,6 +7,7 @@ from Enums.OrderType import OrderType
 #  list = O(n)
 
 # TODO make the delete methods return a list/dict rather than change the self.orders list/dict
+
 class OrderBook:
     def __init__(self, algorithm, date, marketRegion):
         self.algorithm = algorithm
@@ -62,10 +63,38 @@ class OrderBook:
 
         tempOrders.sort(key=lambda o: o.price, reverse=False)
         cheapestOrders = []
-        if len(tempOrders) > 4:
-            for i in range(5):
+        if len(tempOrders) > 2:
+            for i in range(3):
                 cheapestOrders.append(tempOrders[i])
         else:
             for i in range(len(tempOrders)):
                 cheapestOrders.append(tempOrders[i])
         return cheapestOrders
+
+
+def htmlifyOrders(orderBook, orders: Order, unitSize: str):
+    if not isinstance(orderBook, OrderBook):
+        raise TypeError("must use the OrderBook class")
+    table = f"""
+    <h2>Algo: {orderBook.algorithm}</h2>
+    <table class="table">
+        <tr>
+            <th scope="col">Price</th>
+            <th scope="col">Rigs</th>
+            <th scope="col">Hash Power Limit in {unitSize}</th>
+            <th scope="col">Order Type</th>
+            <th scope="col">Region</th>
+        </tr>
+    """
+    for order in orders:
+        table += f"""
+            <tr scope="row">
+                <td>{order.price}</td>
+                <td>{order.rigsCount}</td>
+                <td>{order.limit}</td>
+                <td>{order.orderType.value}</td>
+                <td>{orderBook.marketRegion}</td>
+            </tr>
+        """
+    table += "</table>"
+    return table

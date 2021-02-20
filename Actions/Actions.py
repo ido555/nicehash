@@ -30,9 +30,6 @@ def getOrderBooks(algorithm, size):
             isAlive = order.get('alive')
             orderId = order.get('id')
             tempOrderBook.addOrder(Order(orderType, price, limit, rigsCount, isAlive, orderId))
-        # TODO change
-        # tempOrderBook.deleteDeadOrders()
-        # tempOrderBook.deleteOrderWithoutRigs()
         orderBooks.append(tempOrderBook)
     return orderBooks
 

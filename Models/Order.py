@@ -13,4 +13,4 @@ class Order:
         self.isAlive = isAlive
 
     def __repr__(self):
-        return f"Price: {self.price}, Rigs: {self.rigsCount}, Hash Limit: {self.limit}, Order Type: {self.orderType}"
+        return f"Price: {self.price}, Rigs: {self.rigsCount}, Hash Limit: {self.limit}, Order Type: {self.orderType.value}"
