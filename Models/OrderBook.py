@@ -6,6 +6,7 @@ from Enums.OrderType import OrderType
 #  dict = O(1)
 #  list = O(n)
 
+# TODO make the delete methods return a list/dict rather than change the self.orders list/dict
 class OrderBook:
     def __init__(self, algorithm, date, marketRegion):
         self.algorithm = algorithm
@@ -16,10 +17,14 @@ class OrderBook:
     def addOrder(self, order):
         if not isinstance(order, Order):
             raise TypeError("Must use the Order class")
-        self.__orders.append(order)
+        if order.isAlive and order.rigsCount > 0:
+            self.__orders.append(order)
 
     def getOrders(self):
         return self.__orders
+
+    def setOrders(self, orders: list):
+        self.__orders = orders
 
     def deleteOrderById(self, orderId):
         for order in self.__orders:
@@ -44,3 +49,23 @@ class OrderBook:
             if order.orderType == orderType:
                 filteredOrders.append(order)
         return filteredOrders
+
+    def getCheapestOrders(self):
+        """ Get 5 lowest price orders """
+        tempOrders = self.__orders
+        # TODO bad code from here on, good enough for POC
+        for order in tempOrders:
+            if not order.isAlive:
+                tempOrders.remove(order)
+            if order.rigsCount < 1:
+                tempOrders.remove(order)
+
+        tempOrders.sort(key=lambda o: o.price, reverse=False)
+        cheapestOrders = []
+        if len(tempOrders) > 4:
+            for i in range(5):
+                cheapestOrders.append(tempOrders[i])
+        else:
+            for i in range(len(tempOrders)):
+                cheapestOrders.append(tempOrders[i])
+        return cheapestOrders
