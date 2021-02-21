@@ -1,4 +1,4 @@
-from Enums.ApiURIs import ApiURIs
+from Enums.ApiURIs import NicehashURIs
 from Enums.OrderType import OrderType
 from Models.Algo import Algo
 from Models.OrderBook import OrderBook
@@ -15,7 +15,7 @@ def getServerTime():
 def getOrderBooks(algorithm, size):
     """ recommended size (orders amount per page) is above 1000"""
     headers = {'algorithm': algorithm, 'size': size}
-    r = requests.get(ApiURIs.hashPowerOrderBook.value, headers)
+    r = requests.get(NicehashURIs.hashPowerOrderBook.value, headers)
 
     orderBooks = []
     date = getServerTime()
@@ -35,10 +35,10 @@ def getOrderBooks(algorithm, size):
 
 
 def getAlgosInfo():
-    r = requests.get(ApiURIs.serverTime.value)
+    r = requests.get(NicehashURIs.serverTime.value)
     date = datetime.fromtimestamp(r.json()['serverTime'] / 1000)
     algosInfo = []
-    r = requests.get(ApiURIs.miningAlgosInfo.value)
+    r = requests.get(NicehashURIs.miningAlgosInfo.value)
     for algoInfo in r.json()['miningAlgorithms']:
         title = algoInfo['title']
         algorithm = algoInfo['algorithm']

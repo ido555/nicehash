@@ -54,7 +54,7 @@ class OrderBook:
     def getCheapestOrders(self):
         """ Get 5 lowest price orders """
         tempOrders = self.__orders
-        # TODO bad code from here on, good enough for POC
+        # TODO bad code from here on, good enough for POC, fix later
         for order in tempOrders:
             if not order.isAlive:
                 tempOrders.remove(order)
@@ -72,7 +72,7 @@ class OrderBook:
         return cheapestOrders
 
 
-def htmlifyOrders(orderBook, orders: Order, unitSize: str):
+def htmlifyOrders(orderBook, orders: [Order], unitSize: str):
     if not isinstance(orderBook, OrderBook):
         raise TypeError("must use the OrderBook class")
     table = f"""

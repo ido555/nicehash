@@ -1,5 +1,5 @@
 from pprint import pprint as pp
-import Actions.Actions as actions
+import Actions.NicehashApi as Nicehash
 from Models.OrderBook import htmlifyOrders
 import jsonpickle
 from Enums.OrderType import OrderType
@@ -15,8 +15,8 @@ import json
 # print("\n=======================")
 # actions.getOrderBooks("SHA256", 1)
 table = ""
-for algo in actions.getAlgosInfo():
-    for orderBook in actions.getOrderBooks(algo.algorithm, 1000):
+for algo in Nicehash.getAlgosInfo():
+    for orderBook in Nicehash.getOrderBooks(algo.algorithm, 1000):
         print(f"added: {algo.algorithm}, from the {orderBook.marketRegion} market region")
         table += htmlifyOrders(orderBook, orderBook.getCheapestOrders(), algo.displayMarketFactor)
         print("=====================================\n")
